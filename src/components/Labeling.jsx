@@ -70,8 +70,10 @@ export default function Labeling({ onSubmit, onBack, isSubmitting, uploadProgres
                 key={id}
                 type="button"
                 onClick={() => setEnvironment(environment === id ? null : id)}
-                className={`px-5 py-3 rounded-xl font-medium touch-manipulation ${
-                  environment === id ? 'bg-slate-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                className={`px-5 py-3 rounded-xl font-medium touch-manipulation transition-colors ${
+                  environment === id
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-slate-700 text-slate-200 hover:bg-slate-600'
                 }`}
               >
                 {label}
@@ -88,8 +90,10 @@ export default function Labeling({ onSubmit, onBack, isSubmitting, uploadProgres
                 key={n}
                 type="button"
                 onClick={() => setNumTaps(numTaps === n ? null : n)}
-                className={`px-5 py-3 rounded-xl font-medium touch-manipulation ${
-                  numTaps === n ? 'bg-slate-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                className={`px-5 py-3 rounded-xl font-medium touch-manipulation transition-colors ${
+                  numTaps === n
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-slate-700 text-slate-200 hover:bg-slate-600'
                 }`}
               >
                 {n}
