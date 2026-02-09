@@ -49,6 +49,12 @@ export async function uploadSample(
       device_type: metadata.deviceType,
       browser: metadata.browser,
       os: metadata.os,
+      ip: metadata.ip ?? null,
+      country: metadata.country ?? null,
+      city: metadata.city ?? null,
+      region: metadata.region ?? null,
+      session_id: metadata.sessionId ?? null,
+      visitor_id: metadata.visitorId ?? null,
     })
 
     if (insertError) return { success: false, error: insertError.message }

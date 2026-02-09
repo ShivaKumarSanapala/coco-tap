@@ -1,10 +1,11 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import Landing from './components/Landing'
 import Recording from './components/Recording'
 import Playback from './components/Playback'
 import Labeling from './components/Labeling'
 import Success from './components/Success'
 import { uploadSample, getDeviceMetadata } from './lib/upload'
+import { getVisitorId, getSessionId } from './lib/identifiers'
 import { RECORD_DURATION_MS } from './lib/audio'
 
 const STEPS = { landing: 'landing', recording: 'recording', playback: 'playback', labeling: 'labeling', success: 'success' }
@@ -15,6 +16,15 @@ export default function App() {
   const [uploadProgress, setUploadProgress] = useState(0)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
+  const geoRef = useRef(null)
+
+  // Fetch IP/geo from Vercel serverless (only works when deployed on Vercel)
+  useEffect(() => {
+    fetch(`${window.location.origin}/api/geo`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => { if (data) geoRef.current = data })
+      .catch(() => {})
+  }, [])
 
   // Prevent accidental refresh/close during recording (optional but helpful)
   useEffect(() => {
@@ -46,9 +56,16 @@ export default function App() {
     setSubmitError(null)
     setUploadProgress(0)
     setSubmitting(true)
+    const geo = geoRef.current || {}
     const metadata = {
       ...getDeviceMetadata(),
       recordingDurationSec: RECORD_DURATION_MS / 1000,
+      ip: geo.ip ?? null,
+      country: geo.country ?? null,
+      city: geo.city ?? null,
+      region: geo.region ?? null,
+      sessionId: getSessionId(),
+      visitorId: getVisitorId(),
     }
     const result = await uploadSample(
       audio,

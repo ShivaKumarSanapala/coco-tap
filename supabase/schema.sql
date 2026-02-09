@@ -12,6 +12,12 @@ create table if not exists public.samples (
   device_type text,
   browser text,
   os text,
+  ip text,
+  country text,
+  city text,
+  region text,
+  session_id text,
+  visitor_id text,
   created_at timestamptz not null default now()
 );
 
@@ -29,3 +35,11 @@ create policy "Allow anon select"
   on public.samples for select
   to anon
   using (true);
+
+-- If you already had the table before these columns existed, run the following once in SQL Editor:
+-- alter table public.samples add column ip text;
+-- alter table public.samples add column country text;
+-- alter table public.samples add column city text;
+-- alter table public.samples add column region text;
+-- alter table public.samples add column session_id text;
+-- alter table public.samples add column visitor_id text;

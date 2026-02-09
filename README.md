@@ -37,6 +37,12 @@ Without these env vars, the app still runs; the Submit step will fail with "Supa
 | `device_type` | From UA: mobile \| desktop |
 | `browser` | From UA: Chrome, Safari, etc. |
 | `os` | From UA: Android, iOS, etc. |
+| `ip` | From Vercel request (deployed only) |
+| `country`, `city`, `region` | From Vercel geo headers (deployed only) |
+| `session_id` | UUID per tab (sessionStorage) |
+| `visitor_id` | UUID per browser (localStorage) |
+
+If you already had the `samples` table, run the migration ALTERs at the bottom of `supabase/schema.sql` once in the SQL Editor.
 
 Audio is stored as-is (no client-side conversion): `.webm` (Chrome/Android), `.m4a` (Safari/iOS).
 
@@ -66,8 +72,9 @@ The app is a static Vite build. Two simple options:
      - `VITE_SUPABASE_URL` = your Supabase project URL
      - `VITE_SUPABASE_ANON_KEY` = your Supabase anon public key
    - Optional: `VITE_SUPABASE_BUCKET` = `coco-tap-audio` (or your bucket name; this is the default).
-5. Click **Deploy**. Vercel will run `npm run build` and serve the app.
+5. Click **Deploy**. Vercel will run `npm run build` and serve the app. The `api/` folder is deployed as serverless functions (used for IP/geo when hosted).
 6. Your app will be live at `https://your-project.vercel.app`. You can add a custom domain in Project Settings.
+7. **Auto-deploy**: Pushing to the connected branch (usually `main`) triggers a new deployment automatically.
 
 ### Option B: Netlify
 
