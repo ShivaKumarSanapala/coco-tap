@@ -10,7 +10,8 @@ export default function Landing({ onStart }) {
           <ul className="space-y-3 text-slate-300 text-sm">
             <li>• Place your phone <strong className="text-slate-100">~10–15 cm</strong> from the coconut</li>
             <li>• Tap the coconut <strong className="text-slate-100">3–5 times</strong></li>
-            <li>• Record in a <strong className="text-slate-100">quiet environment</strong></li>
+            <li>• Tap on the ridges of the coconut (like striking a carrom coin on a carrom board), not on the top or bottom</li>
+            <li>• Best if recorded in a <strong className="text-slate-100">quiet environment</strong></li>
           </ul>
         </div>
 
